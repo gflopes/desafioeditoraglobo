@@ -1,0 +1,346 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Notícias API - Editora Globo Desafio",
+    "version": "1.0.0",
+    "title": "Swagger - API Notícias"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/signup": {
+      "post": {
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Adicionar um novo usuário",
+        "description": "Adicionar um novo usuário",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON para adicionar um usuário",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuário cadastrado com sucesso"
+          },
+          "400": {
+            "description": "Email já cadastrado"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Efetuar o login do usuário na API",
+        "description": "Efetuar o login do usuário na API",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON para efetuar o login de um usuário",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UsuarioAutenticado"
+            }
+          },
+          "401": {
+            "description": "Usuário e/ou Senha inválidos"
+          },
+          "404": {
+            "description": "Usuário e/ou Senha inválidos"
+          },
+          "500": {
+            "description": "Erro na atualização da data de último login do usuário"
+          }
+        }
+      }
+    },
+    "/noticias": {
+      "post": {
+        "tags": [
+          "noticias"
+        ],
+        "summary": "Adicionar uma nova notícia",
+        "description": "Adicionar uma nova notícia",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON para adicionar uma nova notícia",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Noticia"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notícia cadastrada com sucesso."
+          },
+          "400": {
+            "description": "Notícia já cadastrada."
+          },
+          "500": {
+            "description": "Erro ao adicionar uma nova notícia"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "noticias"
+        ],
+        "summary": "Listar as notícias cadastradas",
+        "description": "Listar as notícias cadastradas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Página a ser listada",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Noticias"
+            }
+          },
+          "500": {
+            "description": "Erro ao listar as notícias cadastradas"
+          }
+        }
+      }
+    },
+    "/noticias/{id}": {
+      "put": {
+        "tags": [
+          "noticias"
+        ],
+        "summary": "Atualizar uma notícia",
+        "description": "Atualizar uma notícia",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da notícia",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON para adicionar uma nova notícia",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Noticia"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Notícia atualizada com sucesso."
+          },
+          "404": {
+            "description": "Notícia não encontrada."
+          },
+          "500": {
+            "description": "Erro ao atualizar a notícia"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "noticias"
+        ],
+        "summary": "Pesquisar uma notícia por ID",
+        "description": "Pesquisar uma notícia por ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da notícia",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Noticia"
+            }
+          },
+          "404": {
+            "description": "Notícia não encontrada"
+          },
+          "500": {
+            "description": "Erro ao buscar a notícia"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "noticias"
+        ],
+        "summary": "Excluir uma notícia por ID",
+        "description": "Excluir uma notícia por ID",
+        "produces": [
+          "application/xml"
+        ],
+        "consumes": [
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da notícia",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Not Content"
+          },
+          "404": {
+            "description": "Notícia não encontrada"
+          },
+          "500": {
+            "description": "Erro ao excluir a notícia"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Noticia": {
+      "type": "object",
+      "properties": {
+        "titulo": {
+          "type": "string"
+        },
+        "conteudo": {
+          "type": "string"
+        },
+        "dataPublicacao": {
+          "type": "string"
+        }
+      }
+    },
+    "ListaNoticia": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Noticia"
+      }
+    },
+    "Noticias": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "totalPages": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "nextPage": {
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/ListaNoticia"
+        }
+      }
+    },
+    "Usuario": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "senha": {
+          "type": "string"
+        }
+      }
+    },
+    "UsuarioAutenticado": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

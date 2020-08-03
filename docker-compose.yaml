@@ -1,0 +1,43 @@
+version: "2"
+services:
+  frontend:
+    image: node:13.12.0-alpine
+    restart: always
+    ports:
+        - "3000:3000"
+    working_dir: /frontend
+    volumes:
+        - ./frontend:/frontend/src
+        - /frontend/node_modules
+    entrypoint: ["npm", "start"]
+    links:
+        - backend
+    networks:
+        - webappnetwork
+  backend:
+    image: node:13.12.0-alpine
+    restart: always
+    ports:
+        - "3001:3001"
+    volumes:
+        - ./backend:/backend
+        - /backend/node_modules
+    entrypoint: ["node", "loader.js"]
+    depends_on:
+        - mongodb
+    networks:
+        - webappnetwork
+  mongodb:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    volumes:
+        - ./data-node:/data/db
+    ports:
+        - 27017:27017
+    command: mongod --noauth --smallfiles
+    networks:
+        - webappnetwork
+networks:
+    webappnetwork:
+        driver: bridge
