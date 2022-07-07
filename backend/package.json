@@ -31,7 +31,7 @@
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.8.11",
     "mongoose-date-format": "^1.2.0",
     "mongoose-paginate-v2": "^1.3.6",
